@@ -11,7 +11,7 @@ book_comments = {}
 
 @app.route('/book/rating', methods=['POST'])
 def create_book_rating():
-    rating = int(request.json['rating'])
+    rating = float(request.json['rating']) / 2
     user_id = int(request.json['user_id'])
     book_id = int(request.json['book_id'])
 
@@ -59,7 +59,7 @@ def get_book_rating_average():
         ratings = book_ratings[book_id]
         if len(ratings) > 0:
             average_rating = sum([rating['rating'] for rating in ratings]) / len(ratings)
-            return jsonify({'average_rating': round(average_rating, 2)})
+            return jsonify({'average_rating': round(average_rating * 2, 2)})
 
     return jsonify({'average_rating': 0})
 
